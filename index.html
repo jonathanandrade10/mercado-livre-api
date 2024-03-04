@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ML App token</title>
+</head>
+
+<body>
+  
+  <script>
+    function getQueryParam(parameterName) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(parameterName);
+    }
+
+    function copyToClipboard(text) {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        alert('Text copied to clipboard: ' + text);
+      })
+      .catch(err => {
+        console.error('Unable to copy text to clipboard', err);
+      });
+    }
+
+    const parameterValue = getQueryParam('code');
+    const pageTitle = document.createElement('h1');
+
+    if (parameterValue) {
+      pageTitle.textContent = 'Success Auth: ' + parameterValue;
+      
+      const copyButton = document.createElement('button');
+      copyButton.textContent = 'Copy to Clipboard';
+
+      
+      copyButton.addEventListener('click', function() {
+        copyToClipboard(parameterValue);
+      });
+
+      document.body.appendChild(pageTitle);
+      document.body.appendChild(copyButton);
+      
+    } else {
+      pageTitle.textContent = 'Failure to get Auth Code';
+      document.body.appendChild(pageTitle);
+    }
+
+    
+  </script>
+
+</body>
+</html>
